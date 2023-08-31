@@ -7,18 +7,22 @@ fun main() {
     val firstDiscountStart = 1_001
     val secondDiscountStart = 10_001
 
-    val discount = if (totalPrice < firstDiscountStart) 0
-    else if (totalPrice < secondDiscountStart) 100
-    else (totalPrice * 0.05).toInt()
+    val discount =
+        when {
+            totalPrice < firstDiscountStart -> 0
+            totalPrice < secondDiscountStart -> 100
+            else -> (totalPrice * 0.05).toInt()
+        }
 
-    val discountText = if (totalPrice < firstDiscountStart) "Скидки нет"
-    else if (totalPrice < secondDiscountStart) "100 р."
-    else "5%"
+    val discountText =
+        when {
+            totalPrice < firstDiscountStart -> "Скидки нет"
+            totalPrice < secondDiscountStart -> "100 р."
+            else -> "5%"
+        }
 
     val totalPriceByPromotion = totalPrice - discount
-
     val discountOfRegularCustomer = if (isRegularCustomer) (totalPriceByPromotion * 0.01).toInt() else 0
-
     val result = totalPriceByPromotion - discountOfRegularCustomer
 
     println("Сумма покупки - $totalPrice р.")
